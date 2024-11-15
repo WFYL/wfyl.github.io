@@ -1,0 +1,650 @@
+body {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    background: #051655;
+    font-family: "微软雅黑", "MicrosoftYahei", sans-serif;
+    color: #fff;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, pre, table, blockquote, input, button, select, em, textarea {
+    margin: 0;
+    font-weight: normal;
+    padding: 0;
+    list-style: none;
+    font-style: normal;
+}
+
+html, body {
+    font-family: "微软雅黑", "MicrosoftYahei", sans-serif;
+    color: #fff;
+    background: #00065b url(../../imges/看板/bg.png);
+    background-size: 100% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.wpbox {
+    width: 100%;
+    height: calc(100% - 10px);
+}
+
+.bnt {
+    height: 9%;
+    width: 100%;
+    display: inline-block;
+}
+
+.left1 {
+    width: 18%;
+    height: calc(100% - 10%);
+    float: left;
+    padding-left: 2.2%;
+    text-align: center;
+}
+
+.pleft1 {
+    width: 18.6%;
+    float: left;
+    padding-left: 2.2%;
+    text-align: center;
+}
+
+.puleft {
+    padding-left: 2.2%;
+    width: 35.2%;
+    text-align: center;
+    height: 100%;
+}
+
+.puleft2 {
+    width: 35%;
+    height: 100%;
+    padding-left: 0.4%;
+}
+
+.mr_right {
+    width: 25%;
+    height: 100%;
+}
+
+.left2 {
+    width: 18%;
+    float: left;
+    height: 100%;
+}
+
+.mrbox {
+    float: left;
+    width: 79%;
+    height: 100%;
+}
+
+.mrbox.prbox {
+    float: left;
+    width: 60%;
+    height: 100%;
+}
+
+.mrbox_bottom {
+    float: left;
+    width: 100%;
+    height: 28%;
+}
+
+.mrbox_top_midd {
+    width: 68%;
+    float: left;
+    height: 100%;
+}
+
+.mrbox_topmidd {
+    float: left;
+    width: 76%;
+    padding-left: 0.2%;
+    height: 100%;
+}
+
+.amidd_bott,.box {
+    overflow: hidden;
+}
+
+.pmidd_bott {
+    width: 100%;
+    height: 57.4%;
+}
+
+.mrbox_top_right {
+    float: right;
+    width: 29.4%;
+    padding-right: 1.4%;
+    height: 100%;
+}
+
+.mrbox_top {
+    width: 100%;
+    height: 62.4%;
+}
+
+.hdmrbox_top {
+    width: 100%;
+    height: 100%;
+}
+
+.lefttime {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 84%;
+    height: 9.3%;
+    margin-left: 6%;
+}
+
+.lefttime_text {
+    padding: 2% 5% 0 5%;
+}
+
+.lefttime_text li {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    width: 20%;
+    float: left;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.lefttime_text li.bg {
+    background: rgba(0, 183, 238, 0.1);
+}
+
+.lefttime_text li.active {
+    background: rgba(0, 183, 238, 0.6);
+    color: #fff;
+}
+
+.lefttoday {
+    background-repeat: no-repeat;
+    background-position: -3px 2px;
+    width: 350px;
+    height: 584px;
+    margin: 0 auto;
+}
+
+.lefttoday_tit {
+    overflow: hidden;
+    padding: 1.9% 5% 0.2%;
+    height: 6%;
+    position: relative;
+}
+
+.lefttoday_tit.height {
+    height: 12%;
+}
+
+.lefttoday_number {
+    overflow: hidden;
+    height: 74%;
+    width: 91%;
+    margin: 1% 4%;
+    background: rgba(1, 202, 217, 0.2);
+}
+
+.lefttoday_tit p.fl {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    left: 5%;
+    top: 22%;
+}
+
+.lefttoday_tit p.fr {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    right: 5%;
+    top: 25%;
+}
+
+.lefttoday_tit p.fm {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    left: 40%;
+    top: 25%;
+}
+
+.lefttoday_tit.height.ht {
+    height: 16%;
+}
+
+.lefttoday_tit.height p.fl {
+    position: absolute;
+    left: 5%;
+    top: 15%;
+}
+
+.lefttoday_tit.height p.fr {
+    position: absolute;
+    left: 5%;
+    top: 65%;
+    right: auto;
+}
+
+.lefttoday_bar ul {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.lefttoday_bar li {
+    color: #333;
+    position: absolute;
+    border-radius: 50%;
+    font-size: 12px;
+    overflow: hidden;
+    font-weight: normal;
+    text-align: center;
+    line-height: 140%;
+}
+
+.lefttoday_bar li span {
+    padding-top: 30%;
+    display: inline-block;
+}
+
+.c1 {
+    background: #ac3ff2;
+}
+
+.c2 {
+    background: #ffff00;
+}
+
+.c3 {
+    background: #0078ff;
+}
+
+.c4 {
+    background: #9cff00;
+}
+
+.c5 {
+    background: #ff6c00;
+}
+
+.c6 {
+    background: #77b5fb;
+}
+
+.big0 {
+    width: 10px;
+    height: 10px;
+}
+
+.big1 {
+    width: 20px;
+    height: 20px;
+}
+
+.big2 {
+    width: 30px;
+    height: 30px;
+}
+
+.big3 {
+    width: 40px;
+    height: 40px;
+}
+
+.big4 {
+    width: 50px;
+    height: 50px;
+}
+
+.big5 {
+    width: 60px;
+    height: 60px;
+}
+
+.big6 {
+    width: 70px;
+    height: 70px;
+}
+
+.leftclass {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 350px;
+    height: 291px;
+}
+
+.leftbox2_table {
+    background-repeat: no-repeat;
+    background-position: -2px -2px;
+    width: 354px;
+    height: 680px;
+}
+
+.left2_table {
+    width: 91%;
+    margin-left: 5%;
+    font-size: 12px;
+    height: 83.6%;
+    overflow: hidden;
+}
+
+.hdleft2_table {
+    width: 91%;
+    margin-left: 5%;
+    font-size: 12px;
+    height: 91.6%;
+    overflow: hidden;
+}
+
+.left2_table li {
+    background: rgba(1, 202, 217, 0.2) no-repeat top left;
+    position: relative;
+    overflow: hidden;
+    padding: 2% 6%;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 150%;
+}
+
+.left2_table li b {
+    color: rgba(255, 255, 255, 1);
+    font-weight: normal;
+}
+
+.left2_table li p.fl {
+    width: 80%;
+    overflow: hidden;
+}
+
+.left2_table li p.fr {
+    position: absolute;
+    right: 5%;
+    top: -20%;
+}
+
+.yellow {
+    color: #fff45c;
+}
+
+.green {
+    color: #00c2fd;
+}
+
+.left2_table li.bg {
+    background: rgba(0, 255, 255, 0.4) no-repeat top left;
+}
+
+.mrbox_tr_box {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 354px;
+    height: 291px;
+}
+
+.mrboxtm-mbox {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 100%;
+    height: 63.6%;
+}
+
+.mrboxtm-b1 {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 460px;
+    height: 233px;
+    float: left;
+}
+
+.mrboxtm-b2 {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 330px;
+    height: 233px;
+    float: right;
+}
+
+.mrbox_tr_box {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 350px;
+    height: 680px;
+}
+
+.hdmrboxtm-mbox {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 100%;
+    height: 61.6%;
+}
+
+.rbottom_box1 {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 33.5%;
+    height: 89.4%;
+    float: left;
+}
+
+.rbottom_box2 {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 33.5%;
+    height: 89.4%;
+    float: left;
+    margin-left: 0.8%;
+}
+
+.rbottom_box3 {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 30%;
+    height: 89.4%;
+    float: left;
+    margin-left: 1%;
+}
+
+.prbottom_box1cont {
+    margin-left: 5.2%;
+    width: 90.6%;
+    height: 82%;
+    margin-top: 1.8%;
+}
+
+.prbottom_box2cont {
+    margin-left: 5.2%;
+    width: 90.6%;
+    height: 82%;
+    margin-top: 1.8%;
+}
+
+.prbottom_box3cont {
+    margin-left: 5.2%;
+    width: 90.6%;
+    height: 82%;
+    margin-top: 1.8%;
+}
+
+.tith2 {
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    padding-top: 1.9%;
+    letter-spacing: 2px;
+    overflow: hidden;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.topbnt_left {
+    width: 33%;
+}
+
+.topbnt_left ul {
+    padding-top: 38px;
+    padding-left: 10%;
+    width: 100%;
+}
+
+.topbnt_left li {
+    font-size: 14px;
+    line-height: 33px;
+    background-repeat: no-repeat;
+    width: 18%;
+    height: 35px;
+    float: left;
+    text-align: center;
+    margin-left: 1%;
+}
+
+.topbnt_left li.active,.topbnt_right li.active {
+}
+
+.topbnt_left li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.tith1 {
+    width: 33%;
+    text-align: center;
+    padding-top: 16px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    font-size: 36px;
+}
+
+.topbnt_right {
+    padding-top: 2%;
+    padding-right: 2.5%;
+    width: 27%;
+}
+
+.topbnt_right li {
+    background: center;
+    font-size: 14px;
+    line-height: 33px;
+    background-repeat: no-repeat;
+    width: 22%;
+    height: 35px;
+    float: right;
+    text-align: center;
+    margin-right: 1%;
+}
+
+.topbnt_right li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.pt1 {
+    padding-top: 1.3%;
+}
+
+.pt2 {
+    padding-top: 2.2%;
+}
+
+.pt3 {
+    padding-top: 3.3%;
+}
+
+.pt6 {
+    padding-top: 6px;
+}
+
+.pt17 {
+    padding-top: 17px;
+}
+
+.pt14 {
+    padding-top: 14px;
+}
+
+.pt12 {
+    padding-top: 12px;
+}
+
+.pt20 {
+    padding-top: 22px;
+}
+
+.mrboxtm-map {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 90%;
+    margin-left: 4%;
+    margin-top: 1%;
+    height: 90%;
+    position: relative;
+}
+
+.hdmrboxtm-map {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 90%;
+    margin-left: 4%;
+    margin-top: 1%;
+    height: 66%;
+    position: relative;
+}
+
+.mrboxtm-map li {
+    width: 23px;
+    height: 22px;
+    line-height: 22px;
+    color: #fff;
+    text-align: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 12px;
+    position: absolute;
+}
+
+.mrboxtm-map li.bluer {
+}
+
+.mrboxtm-map li.redr {
+}
+
+.ricontop {
+    width: 29px;
+    height: 30px;
+}
+
+.pumiddboxtbott1cont {
+    width: 92%;
+    height: 90.2%;
+    margin-left: 3%;
+}

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="src/css/看板/style.css">
+    <script src="src/js/echarts.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="src/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="src/js/天气.js"></script>
+    <link rel="stylesheet" href="src/css/天气.css">
+    <link rel="stylesheet" href="src/css/表格/表格.css">
+    <link href="src/css/看板/css.css" rel="stylesheet" type="text/css" media="all"/>
+    <title></title>
+</head>
+
+<body style="overflow: hidden;" class="fill-parent" dg-chart-auto-resize="true"
+      dg-chart-options="{title:{show:false},legend:{top:0},grid:{top:25}}"
+      dg-chart-theme="{color:'#F0F0F0',actualBackgroundColor:'#142233'}">
+<div class="head">
+    <div class="title"><label>牛客周赛 Round </label></div>
+</div>
+<div class="content">
+    <div class="layout layout-left-top">
+        <div class="panel panel-bg no-title-bg">
+            <div class="title"><label>本日天气</label></div>
+            <div class="weather-box" style="width: 100%; height: 95%">
+                <div class="data" style="transform: scale(5);">
+                    <p class="time" id="time">14:32:51</p>
+                    <p id="date"><span>2024/11/7</span><span>pm</span><span>周4</span></p>
+                </div>
+                <div class="weather" style="transform: scale(5);">
+                    <img id="weatherImg" src="src/imges/weather/weather_img01.png" alt="">
+                    <div id="weather">
+                        <p class="active">多云</p>
+                        <p>16-22℃</p>
+                        <p>河池市宜州区</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layout layout-left-center">
+        <div class="panel">
+            <div class="title"><label>本周题目分数分布情况</label></div>
+            <div class="chart wu_biao" dg-chart-widget="">
+                <div id="purightboxbott" class="purightboxbottcont" style="width: 90% ; height: 95%"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout layout-left-bottom">
+        <div class="panel">
+            <div class="title"><label>折线柱状图</label></div>
+            <div class="chart wu_biao" dg-chart-widget="">
+                <div id="pumiddboxtbott1" class="fl pumiddboxtbott1cont"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout layout-center">
+        <div class="layout layout-center-main">
+            <div class="layout layout-center-top">
+                <div id="chart_1" class="chart" style="width:auto;height: 100%;"></div>
+            </div>
+            <div class="layout layout-center-bottom">
+                <div class="panel no-title-bg" style="width: auto;height: auto">
+                    <div class="title" style="width: auto;height: auto"><label>本周总览 </label><a href="src/Excel/niu.xlsx"
+                                                                                                   download
+                                                                                                   style="color: #cce198"><span
+                            style="font-size: 11px">⇒表格下载 EX to Table</span></a></div>
+                    <div class="chart" dg-chart-widget="" style="width: auto;height: auto">
+                        <div class="right_cage" style="float: left; width: 100%;height: 100%;" id="gundongtiao">
+                            <div class="dataAllBorder01 cage_cl check_increase"
+                                 style="width: 100%;height: 100%; margin-top: 1.5% !important;">
+                                <div class="dataAllBorder02 over_hide dataAllBorder20" style="width: 100%;height: 10%">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr style="background: rgb(3 30 113)">
+                                            <th style="width: 4%">排</th>
+                                            <th style="width: 11%">班级</th>
+                                            <th style="width: 9%">姓名</th>
+                                            <th style="width: auto">牛客名称</th>
+                                            <th style="width: 10%">牛客 id</th>
+                                            <th style="width: 7%">名次</th>
+                                            <th style="width: 10%">学校</th>
+                                            <th style="width: 5%">AC</th>
+                                            <th style="width: 7%">总分</th>
+                                            <th style="width: 12%">时间</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="dataAllBorder02 over_hide dataAllBorder20" style="width: 100%;height: 80%"
+                                     id="over_hide">
+                                    <table class="table table-bordered" id="myTable"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layout layout-right-top">
+        <div class="panel">
+            <div class="title"><label>本周提交分布玫瑰图</label></div>
+            <div class="chart wu_biao" dg-chart-widget="">
+                <div id="purightboxtop" class="purightboxtopcont right_tu"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout layout-right-center">
+        <div class="panel">
+            <div class="title"><label>近期参与人数</label></div>
+            <div class="chart wu_biao" dg-chart-widget="">
+                <div id="purightboxmidd" class="purightboxmiddcont right_tu"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout layout-right-bottom">
+        <div class="panel">
+            <div class="title"><label>上周成绩比较</label></div>
+            <div class="chart wu_biao" dg-chart-widget="">
+                <div class="right_cage" style="float: left; width: 100%;height: 100%;" id="gundongtiao_ringht">
+                    <div class="dataAllBorder01 cage_cl check_increase"
+                         style="width: 100%;height: 100%; margin-top: 1.5% !important;">
+                        <div class="dataAllBorder02 over_hide dataAllBorder20" style="width: 100%;height: 10%">
+                            <table class="table table-bordered">
+                                <tr style="background: rgb(3 30 113)">
+                                    <th style="width: 8%">排</th>
+                                    <th style="width: 8%">dp</th>
+                                    <th style="width: 25%">班级</th>
+                                    <th style="width: 20%">姓名</th>
+                                    <th style="width: auto">总分</th>
+                                    <th style="width: 20%">时间</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="dataAllBorder02 over_hide dataAllBorder20" style="width: 100%;height: 80%"
+                             id="over_hide_right">
+                            <table class="table table-bordered" id="myTable2"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+    const num = 67;
+    const left2 = [{value: 438.34000000000003, name: 'A'},
+        {value: 190.0, name: 'B'},
+        {value: 228.75, name: 'C'},
+        {value: 13.620000000000001, name: 'D'},
+        {value: 25.81, name: 'E'},
+        {value: 78.13, name: 'F'},
+        {value: 0.0, name: 'G'}];
+    const left3_data1 = ['25', '14', '16', '6', '3', '2', '4'];
+    const left3_data2 = ['23', '17', '9', '4', '2', '4', '23'];
+    const left3_data3 = ['-2', '3', '-7', '-2', '-1', '2', '19'];
+    const center1 = [
+        {value: 438.34, name: 'A', itemStyle: {normal: {color: '#f845f1'}}},
+        {value: 190.00, name: 'B', itemStyle: {normal: {color: '#ad46f3'}}},
+        {value: 228.75, name: 'C', itemStyle: {normal: {color: '#5045f6'}}},
+        {value: 13.62, name: 'D', itemStyle: {normal: {color: '#4777f5'}}},
+        {value: 25.81, name: 'E', itemStyle: {normal: {color: '#44aff0'}}},
+        {value: 78.13, name: 'F', itemStyle: {normal: {color: '#45dbf7'}}},
+        {value: 0.00, name: 'G', itemStyle: {normal: {color: '#f6d54a'}}},
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+    ];
+    const center2 = [
+        ['1', '软件231', '赵俊锋', '锋front', '408232396', '786', '河池学院', '2', '175', '01:50:11'],
+        ['2', '计技中222', '覃健庭', 'NPC_of_EarthOnline', '726623220', '867', '河池学院', '1', '103.13', '01:03:31'],
+        ['3', '计技中221', '卢永华', '阳光as', '445291084', '875', '河池学院', '2', '101.25', '01:32:29'],
+        ['4', '软件232', '邱帥銘', 'Mousennnn', '400320297', '910', '河池学院', '2', '87.04', '01:54:54'],
+        ['5', '计技222', '吴玉海', '吴玉海', '206578392', '968', '河池学院', '1', '76.60', '01:54:19'],
+        ['6', '软件232', '潘昊', '潘昊ph', '457352654', '970', '河池学院', '2', '75', '01:12:48'],
+        ['7', ' 计技 231', ' 雷世维 ', '雷世维', '911030757', '1133', '河池学院', '1', '51.25', '01:55:05'],
+        ['8', '计技231', '农阳晨', 'Maou逍遥', '742060430', '1178', '河池学院', '1', '43.29', '01:23:39'],
+        ['9', '计技222', '李佳蔚', 'diligent的懒羊羊', '222917009', '1237', '河池学院', '1', '35', '01:04:02'],
+        ['10', '计技中221', '农鑫盛', '星蓝冲冲冲', '575408498', '1464', '河池学院', '1', '25', '00:19:44'],
+        ['11', '软件222', '黎珊珊', '彩塘', '542981108', '1464', '河池学院', '1', '25', '00:44:53'],
+        ['12', ' 软件 231', ' 罗茸丹 ', '罗茸丹', '828180478', '1464', '河池学院', '1', '25', '00:56:13'],
+        ['13', '计技231', '杨孙贤', '杨孙贤', '517552178', '1464', '河池学院', '1', '25', '01:16:43'],
+        ['14', '技计中221', '罗志斌', 'Riven99', '48876146', '1464', '河池学院', '1', '25', '01:35:00'],
+        ['15', '计技222', '杨思婷', 'yy耶斯', '703497972', '1464', '河池学院', '1', '25', '01:38:20'],
+        ['16', '计技中221', '陆明锐', '瓦工读后感', '706480812', '1464', '河池学院', '1', '25', '01:41:12'],
+        ['17', '计技中221', '吴成锫', 'F_AK11', '602386296', '1464', '河池学院', '1', '25', '01:57:19'],
+        ['18', '大数据232', '王恩婷', '云沫wet', '842682522', '1675', '河池学院', '0', '20.42', '01:25:14'],
+        ['19', ' 软件 231', ' 宁馨怡 ', '暮辞间', '407734837', '1716', '河池学院', '0', '6.67', '00:35:18'],
+        ['20', ' 计技 231', ' 吴鹃芳 ', '我是勇敢牛牛678', '466478601', '1761', '河池学院', '0', '0', '00:00:00'],
+        ['21', ' 软件 242', ' 唐博鸿 ', '鸿翔', '587590858', '1761', '河池学院', '0', '0', '00:00:00'],
+        ['22', ' 软件 242', ' 桂瑞杰 ', 'Jerry1__', '690762843', '1761', '河池学院', '0', '0', '00:00:00'],
+        ['23', '计技231', '石才尚', '石才尚', '748938516', '1761', '河池学院', '0', '0', '00:00:00']
+    ];
+    const right1 = [
+        {value: 23, name: 'A'},
+        {value: 17, name: 'B'},
+        {value: 9, name: 'C'},
+        {value: 4, name: 'D'},
+        {value: 2, name: 'E'},
+        {value: 4, name: 'F'},
+        {value: 23, name: 'G'}];
+    const right2_data1 = ['60周', '61周', '62周', '63周', '64周', '65周', '66周'];
+    const right2_data2 = [23, 25, 24, 44, 66, 71, 96];
+    const right3 = [
+        ['1', '⇩', '计技231', '农阳晨', '361.67', '01:54:08'],
+        ['2', '⇪', '计技222', '莫树生', '300', '01:03:21'],
+        ['3', '⇩', '计技222', '吴玉海', '300', '01:54:35'],
+        ['4', '⊜', '软件232', '邱帥銘', '300', '01:56:48'],
+        ['5', '⇩', '计技222', '李佳蔚', '270', '01:29:08'],
+        ['6', '⊜', '软件232', '潘昊', '200', '00:35:47'],
+        ['7', '⇩', '计技中221', '农鑫盛', '200', '01:13:21'],
+        ['8', '⇩', '计技222', '杨思婷', '200', '01:48:15'],
+        ['9', '⇪', ' 计技中 221', ' 谢绍贤 ', '188.33', '00:48:34'],
+        ['10', '⇩', '软件222', '黎珊珊', '137.10', '01:52:39'],
+        ['11', '⇪', '计技中221', '卢永华', '125', '01:25:41'],
+        ['12', '⇩', '计技231', '杨孙贤', '101.67', '01:19:56'],
+        ['13', '⇩', '计技231', '石才尚', '62.10', '01:54:36'],
+        ['14', '⇩', '大数据232', '王恩婷', '55', '01:35:49'],
+        ['15', '⇪', '软件231', '李文慧', '54.84', '01:16:48'],
+        ['16', '⇪', '计技232', '莫光勋', '52.42', '01:34:11'],
+        ['17', '⇪', '软件231', '赵俊锋', '50', '00:10:43'],
+        ['18', '⇪', ' 软件 231', ' 罗茸丹 ', '50', '00:14:42'],
+        ['19', '⇪', ' 计技 231', ' 雷世维 ', '50', '00:17:43'],
+        ['20', '⇪', '计技222', '谢伟鹏', '50', '00:25:08'],
+        ['21', '⇪', '软件231', '黄小慧', '50', '00:53:29'],
+        ['22', '⇪', '计技中221', '陆明锐', '50', '01:35:47'],
+        ['23', '⇪', '技计中221', '罗志斌', '50', '01:38:20'],
+        ['24', '⇪', '计技中221', '吴成锫', '50', '01:50:02'],
+        ['25', '⇪', ' 软件 231', ' 宁馨怡 ', '30', '00:13:41']
+    ];
+</script>
+<script type="text/javascript">
+    name_num = num;
+    const labelElement = document.querySelector('.title label');
+    if (labelElement) {
+        labelElement.textContent += name_num;
+    }
+</script>
+
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('purightboxbott'));
+    option = {
+        color: ['#00f1fc', '#00b7ee', '#5578cf', '#5ebbeb', '#d16ad8', '#f8e19a', '#00b7ee', '#81dabe', '#5fc5ce'],
+        backgroundColor: 'rgba(1,202,217,.2)',
+        grid: {
+            left: 20,
+            right: 20,
+            top: 0,
+            bottom: 20
+        },
+        legend: {
+            top: 2,
+            textStyle: {
+                fontSize: 10,
+                color: 'rgba(255,255,255,.7)'
+            },
+            data: left2
+        },
+        series: [{
+            name: '饼图',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [
+                {
+                    value: 21,
+                    name: 'A'
+                },
+                {
+                    value: 18,
+                    name: 'B'
+                },
+                {
+                    value: 15,
+                    name: 'C'
+                },
+                {
+                    value: 10,
+                    name: 'D'
+                },
+                {
+                    value: 3,
+                    name: 'E'
+                },
+                {value: 2, name: 'F'},
+                {value: 1, name: 'G'}
+
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            },
+            label: {
+                show: true,
+                formatter: '{b} : {c} ({d}%)'
+            },
+        }]
+    };
+    myChart.setOption(option);
+</script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('pumiddboxtbott1'));
+    option = {
+        backgroundColor: 'rgba(1,202,217,.2)',
+        grid: {
+            left: 60,
+            right: 60,
+            top: 70,
+            bottom: 40
+        },
+        toolbox: {
+            feature: {
+                dataView: {
+                    show: true,
+                    readOnly: false
+                },
+                magicType: {
+                    show: true,
+                    type: ['line', 'bar']
+                },
+                restore: {
+                    show: true
+                },
+                saveAsImage: {
+                    show: true
+                }
+            }
+        },
+        legend: {
+            top: 10,
+            textStyle: {
+                fontSize: 10,
+                color: 'rgba(255,255,255,.7)'
+            },
+            data: ['上周提交', '本周提交', '增速']
+        },
+        xAxis: [{
+            type: 'category',
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(255,255,255,.2)'
+                }
+            },
+            splitLine: {
+                lineStyle: {
+                    color: 'rgba(255,255,255,.1)'
+                }
+            },
+            axisLabel: {
+                color: "rgba(255,255,255,.7)"
+            },
+
+            data: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+            axisPointer: {
+                type: 'shadow'
+            }
+        }],
+        yAxis: [
+            {
+                type: 'value',
+                name: '',
+                min: 0,
+                max: 40,
+                interval: 5,
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255,255,255,.3)'
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: 'rgba(255,255,255,.01)'
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} '
+                }
+            },
+            {
+                type: 'value',
+                name: '',
+                max: 20,
+                interval: 5,
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255,255,255,.3)'
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: 'rgba(255,255,255,.1)'
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} 个'
+                }
+            }
+        ],
+        series: [
+
+            {
+                name: '上周提交',
+                type: 'bar',
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#b266ff'
+                            },
+                                {
+                                    offset: 1,
+                                    color: '#121b87'
+                                }
+                            ]
+                        )
+                    }
+                },
+                data: left3_data1,
+                label: {
+                    show: true,
+                    position: 'top',
+                    color: '#b266ff'
+                },
+            },
+            {
+                name: '本周提交',
+                type: 'bar',
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#00f0ff'
+                            },
+                                {
+                                    offset: 1,
+                                    color: '#032a72'
+                                }
+                            ]
+                        )
+                    }
+                },
+                data: left3_data2,
+                label: {
+                    show: true,
+                    position: 'top',
+                    color: '#121b87'
+                },
+            },
+            {
+                name: '增速',
+                type: 'line',
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#fffb34'
+                            },
+                                {
+                                    offset: 1,
+                                    color: '#fffb34'
+                                }
+                            ]
+                        )
+                    }
+                },
+                yAxisIndex: 1,
+                data: left3_data3,
+                label: {
+                    show: true,
+                    position: 'top',
+                    color: '#fffb34'
+                },
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('chart_1'));
+    option = {
+        // 单位
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c}分"
+        },
+        legend: {
+            x: 'center',
+            y: '15%',
+            data: ['A', 'B', 'C', 'D', 'E', 'F', 'G', '石家庄', '唐山'],
+            icon: 'circle',
+            textStyle: {
+                color: '#fff',
+            }
+        },
+        calculable: true,
+        series: [{
+            name: '',
+            type: 'pie',
+            //起始角度，支持范围[0, 360]
+            startAngle: 0,
+            //饼图的半径，数组的第一项是内半径，第二项是外半径
+            radius: [41, 100.75],
+            //支持设置成百分比，设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
+            center: ['50%', '40%'],
+            //是否展示成南丁格尔图，通过半径区分数据大小。可选择两种模式：
+            // 'radius' 面积展现数据的百分比，半径展现数据的大小。
+            //  'area' 所有扇区面积相同，仅通过半径展现数据大小
+            roseType: 'area',
+            //是否启用防止标签重叠策略，默认开启，圆环图这个例子中需要强制所有标签放在中心位置，可以将该值设为 false。
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: true,
+                    formatter: '{c}分'
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: true,
+                    length2: 1,
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            data: center1
+        }]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    window.addEventListener("resize", function () {
+        myChart.resize();
+    });
+</script>
+<script type="text/javascript">
+    // 获取表格元素
+    const table = document.getElementById('myTable');
+
+    // 定义表头（已经在HTML中存在thead部分，这里只是模拟解析表头列信息，实际可不做这步，直接使用已有thead结构）
+    const headers = ["排", "班级", "姓名", "牛客名称", "牛客id", "名次", "学校", "AC", "总分", "时间"];
+
+    // 数据部分，这里是示例数据，你可以替换成实际获取数据的方式（比如从接口获取等）
+    const data = center2;
+    /*const data = [
+        ["1", "软件231", "赵俊锋", "锋front", "408232396", "786", "河池学院", "2", "175", "1:50:11"],
+        ["2", "计技中222", "覃健庭", "NPC_of_EarthOnline", "726623220", "867", "河池学院", "1", "103.13", "1:03:31"],
+        ["3", "计技中221", "卢永华", "阳光as", "445291084", "875", "河池学院", "2", "101.25", "1:32:29"],
+        ["4", "软件232", "邱帥銘", "Mousennnn", "400320297", "910", "河池学院", "2", "87.04", "1:54:54"],
+        ["5", "计技222", "吴玉海", "吴玉海", "206578392", "968", "河池学院", "1", "76.6", "1:54:19"],
+        ["6", "软件232", "潘昊", "潘昊ph", "457352654", "970", "河池学院", "2", "75", "1:12:48"],
+        ["7", "计技231", "农阳晨", "Maou逍遥", "742060430", "1178", "河池学院", "1", "43.29", "1:23:39"],
+        ["8", "计技222", "李佳蔚", "diligent的懒羊羊", "222917009", "1237", "河池学院", "1", "35", "1:04:02"],
+        ["9", "技计中221", "罗志斌", "Riven99", "48876146", "1464", "河池学院", "1", "25", "1:35:00"],
+        ["10", "计技231", "杨孙贤", "杨孙贤", "517552178", "1464", "河池学院", "1", "25", "1:16:43"],
+        ["11", "软件222", "黎珊珊", "彩塘", "542981108", "1464", "河池学院", "1", "25", "0:44:53"],
+        ["12", "计技中221", "农鑫盛", "星蓝冲冲冲", "575408498", "1464", "河池学院", "1", "25", "0:19:44"],
+        ["13", "计技中221", "吴成锫", "F_AK11", "602386296", "1464", "河池学院", "1", "25", "1:57:19"],
+        ["14", "计技222", "杨思婷", "yy耶斯", "703497972", "1464", "河池学院", "1", "25", "1:38:20"],
+        ["15", "计技中221", "陆明锐", "瓦工读后感", "706480812", "1464", "河池学院", "1", "25", "1:41:12"],
+        ["16", "大数据232", "王恩婷", "云沫wet", "842682522", "1675", "河池学院", "0", "20.42", "1:25:14"],
+        ["17", "计技231", "石才尚", "石才尚", "748938516", "1761", "河池学院", "0", "0", "0:00:00"]
+    ];*/
+
+    // 创建tbody元素
+    const tbody = document.createElement('tbody');
+
+    // 遍历数据数组，为每一条数据创建一行tr元素，并填充td元素（对应每列数据）
+    data.forEach(rowData => {
+        const row = document.createElement('tr');
+        rowData.forEach(cellData => {
+            const cell = document.createElement('td');
+            cell.textContent = cellData;
+            row.appendChild(cell);
+        });
+        tbody.appendChild(row);
+    });
+
+    // 将tbody添加到表格中
+    table.appendChild(tbody);
+</script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('purightboxtop'));
+    option = {
+        color: ['#76c4bf', '#e5ffc7', '#508097', '#4d72d9'],
+        backgroundColor: 'rgba(1,202,217,.2)',
+        grid: {
+            left: 10,
+            right: 40,
+            top: 0,
+            bottom: 0,
+            containLabel: true
+        },
+        calculable: true,
+        series: [
+
+            {
+                name: '面积模式',
+                type: 'pie',
+                radius: [10, 70],
+                center: ['50%', '50%'],
+                roseType: 'area',
+                data: right1,
+                label: {
+                    show: true,
+                    formatter: '{b} : {c} ({d}%)'
+                },
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('purightboxmidd'));
+    option = {
+        color: ['#7de494', '#7fd7b1', '#5578cf', '#5ebbeb', '#d16ad8', '#f8e19a', '#00b7ee', '#81dabe', '#5fc5ce'],
+        backgroundColor: 'rgba(1,202,217,.2)',
+
+        grid: {
+            left: 30,
+            right: 40,
+            top: 30,
+            bottom: 20,
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(255,255,255,.2)'
+                }
+            },
+            splitLine: {
+                lineStyle: {
+                    color: 'rgba(255,255,255,.1)'
+                }
+            },
+            axisLabel: {
+                color: "rgba(255,255,255,.7)"
+            },
+            data: right2_data1
+        },
+        yAxis: {
+            type: 'value',
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(255,255,255,.2)'
+                }
+            },
+            splitLine: {
+                lineStyle: {
+                    color: 'rgba(255,255,255,.1)'
+                }
+            },
+            axisLabel: {
+                color: "rgba(255,255,255,.7)",
+                formatter: '{value} 人'
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            },
+            formatter: function (params) {
+                var result = params[0].name + '<br/>';
+                params.forEach(function (item) {
+                    result += item.seriesName + ' : ' + item.value + '人<br/>';
+                });
+                return result;
+            }
+        },
+        series: [{
+            name: '',
+            type: 'line',
+            stack: '',
+            areaStyle: {
+                normal: {}
+            },
+            data: right2_data2,
+            label: {
+                show: true,
+            }
+        }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+<script type="text/javascript">
+    // 获取表格元素
+    const table2 = document.getElementById('myTable2');
+    // 定义一个列表来存储表格数据，每一项对应表格中的一行数据
+    // const tableDataList2 = window.center2;
+    tableDataList2 = right3;
+    // 创建tbody元素
+    const tbody2 = document.createElement('tbody');
+
+    // 遍历数据数组，为每一条数据创建一行tr元素，并填充td元素（对应每列数据）
+    tableDataList2.forEach(rowData => {
+        const row = document.createElement('tr');
+        rowData.forEach(cellData => {
+            const cell = document.createElement('td');
+            cell.textContent = cellData;
+            row.appendChild(cell);
+        });
+        tbody2.appendChild(row);
+    });
+
+    // 将tbody添加到表格中
+    table2.appendChild(tbody2);
+
+</script>
