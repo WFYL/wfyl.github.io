@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/看板/style.css">
     <script src="src/js/echarts.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="src/js/jquery-3.3.1.min.js"></script>
@@ -9,7 +10,89 @@
     <link rel="stylesheet" href="src/css/天气.css">
     <link rel="stylesheet" href="src/css/表格/表格.css">
     <link href="src/css/看板/css.css" rel="stylesheet" type="text/css" media="all"/>
-    <title></title>
+    <title>牛客周赛大数据展示</title>
+    <style>
+        @media screen and (max-aspect-ratio: 1/1) {
+            #left1, #left2, #left3 {
+                position: absolute; /* 添加这一行以确保top和left属性生效 */
+                top: 60px;
+                height: 20%;
+            }
+
+            #left1 {
+                left: 0;
+            }
+
+            #left2 {
+                left: 33.33%;
+            }
+
+            #left3 {
+                left: 66.66%;
+            }
+
+            #center {
+                position: absolute;
+                top: 25%;
+                left: 0;
+                bottom: 25%;
+                height: 50%;
+                width: 100%;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            #center-main {
+                position: absolute;
+                left: 20px;
+                right: 20px;
+                top: 0;
+                bottom: 0;
+                width: auto;
+            }
+
+            #center1, #center2 {
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+            #center1 {
+                width: auto;
+                height: 15%;
+            }
+
+            #center2 {
+                top: 15%;
+                height: 30%;
+                width: auto;
+            }
+
+            #right1, #right2, #right3 {
+                top: 66.6%;
+                height: 20%;
+                bottom: 0;
+            }
+
+            #right1 {
+                right: 0;
+            }
+
+            #right2 {
+                right: 33.33%;
+            }
+
+            #right3 {
+                right: 66.66%;
+            }
+
+            #biao {
+
+            }
+        }
+    </style>
+
 </head>
 
 <body style="overflow: hidden;" class="fill-parent" dg-chart-auto-resize="true"
@@ -19,7 +102,7 @@
     <div class="title"><label>牛客周赛 Round </label></div>
 </div>
 <div class="content">
-    <div class="layout layout-left-top">
+    <div class="layout layout-left-top" id="left1">
         <div class="panel panel-bg no-title-bg">
             <div class="title"><label>本日天气</label></div>
             <div class="weather-box" style="width: 100%; height: 95%">
@@ -38,7 +121,7 @@
             </div>
         </div>
     </div>
-    <div class="layout layout-left-center">
+    <div class="layout layout-left-center" id="left2">
         <div class="panel">
             <div class="title"><label>本周题目分数分布情况</label></div>
             <div class="chart wu_biao" dg-chart-widget="">
@@ -46,7 +129,7 @@
             </div>
         </div>
     </div>
-    <div class="layout layout-left-bottom">
+    <div class="layout layout-left-bottom" id="left3">
         <div class="panel">
             <div class="title"><label>双周提交对比</label></div>
             <div class="chart wu_biao" dg-chart-widget="">
@@ -54,12 +137,12 @@
             </div>
         </div>
     </div>
-    <div class="layout layout-center">
-        <div class="layout layout-center-main">
-            <div class="layout layout-center-top">
+    <div class="layout layout-center" id="center">
+        <div class="layout layout-center-main" id="center-main">
+            <div class="layout layout-center-top" id="center1">
                 <div id="chart_1" class="chart" style="width:auto;height: 100%;"></div>
             </div>
-            <div class="layout layout-center-bottom">
+            <div class="layout layout-center-bottom" id="center2">
                 <div class="panel no-title-bg" style="width: auto;height: auto">
                     <div class="title" style="width: auto;height: auto"><label>本周总览 </label><a
                             href="src/Excel/niu.xlsx"
@@ -70,7 +153,7 @@
                         <div class="right_cage" style="float: left; width: 100%;height: 100%;" id="gundongtiao">
                             <div class="dataAllBorder01 cage_cl check_increase"
                                  style="width: 100%;height: 100%; margin-top: 1.5% !important;">
-                                <div class="dataAllBorder02 over_hide dataAllBorder20" style="width: 100%;height: 10%">
+                                <div class="dataAllBorder02 over_hide dataAllBorder20" style="width: 100%;height: 30px">
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr style="background: rgb(3 30 113)">
@@ -88,9 +171,9 @@
                                         </thead>
                                     </table>
                                 </div>
-                                <div class="dataAllBorder02 over_hide dataAllBorder20" style="width: 100%;height: 80%"
+                                <div class="dataAllBorder02 over_hide dataAllBorder20" style="width: 100%;height: 100%"
                                      id="over_hide">
-                                    <table class="table table-bordered" id="myTable"></table>
+                                    <table class="table table-bordered" id="myTable" style="width: 100%"></table>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +182,7 @@
             </div>
         </div>
     </div>
-    <div class="layout layout-right-top">
+    <div class="layout layout-right-top" id="right1">
         <div class="panel">
             <div class="title"><label>本周提交分布玫瑰图</label></div>
             <div class="chart wu_biao" dg-chart-widget="">
@@ -107,7 +190,7 @@
             </div>
         </div>
     </div>
-    <div class="layout layout-right-center">
+    <div class="layout layout-right-center" id="right2">
         <div class="panel">
             <div class="title"><label>近期参与人数</label></div>
             <div class="chart wu_biao" dg-chart-widget="">
@@ -115,7 +198,7 @@
             </div>
         </div>
     </div>
-    <div class="layout layout-right-bottom">
+    <div class="layout layout-right-bottom" id="right3">
         <div class="panel">
             <div class="title"><label>上周成绩比较</label></div>
             <div class="chart wu_biao" dg-chart-widget="">
@@ -147,8 +230,7 @@
 </body>
 
 </html>
-<!--数据*/*/*/*￥#&1-->
-<!--数据*/*/*/*￥#&1-->
+<!--数据*/*/*/*￥#&1--><!--
 <script type="text/javascript">
     const num= 73;
     const left2= [{value:220.00,name: 'A'},
@@ -207,92 +289,148 @@
         ['11','⌀',' 软件 242',' 桂瑞杰 ','25','00:48:37'],
         ['12','⇪',' 计技 231',' 吴鹃芳 ','10','01:57:41']
     ];
-</script>
-<!--数据*/*/*/*￥#&2-->
-<!--<script type="text/javascript">
-    const num= 71;
-    const left2= [{value:590.00,name: 'A'},
-        {value:78.75,name: 'B'},
-        {value:5.00,name: 'C'},
-        {value:0.00,name: 'D'},
-        {value:0.00,name: 'E'},
-        {value:0.00,name: 'F'},
-        {value:0.00,name: 'G'}];
-    const left3_data1= ['29','22','12','8','4','2','1'];
-    const left3_data2= ['12','5','1','0','0','0','0'];
-    const left3_data3= ['-17','-17','-11','-8','-4','-2','-1'];
-    const center1= [
-        {value: 590.00,name:'A',itemStyle: {normal: {color:'#f845f1'}}},
-        {value: 78.75,name:'B',itemStyle: {normal: {color:'#ad46f3'}}},
-        {value: 5.00,name:'C',itemStyle: {normal: {color:'#5045f6'}}},
-        {value: 0.00,name:'D',itemStyle: {normal: {color:'#4777f5'}}},
-        {value: 0.00,name:'E',itemStyle: {normal: {color:'#44aff0'}}},
-        {value: 0.00,name:'F',itemStyle: {normal: {color:'#45dbf7'}}},
-        {value: 0.00,name:'G',itemStyle: {normal: {color:'#f6d54a'}}},
-        {value: 0.0,name:'',itemStyle: {normal: {color:'transparent'}},label: {show: false},labelLine: {show: false}},
-        {value: 0.0,name:'',itemStyle: {normal: {color:'transparent'}},label: {show: false},labelLine: {show: false}},
-        {value: 0.0,name:'',itemStyle: {normal: {color:'transparent'}},label: {show: false},labelLine: {show: false}},
-        {value: 0.0,name:'',itemStyle: {normal: {color:'transparent'}},label: {show: false},labelLine: {show: false}},
-        {value: 0.0,name:'',itemStyle: {normal: {color:'transparent'}},label: {show: false},labelLine: {show: false}},
-        {value: 0.0,name:'',itemStyle: {normal: {color:'transparent'}},label: {show: false},labelLine: {show: false}},
-        {value: 0.0,name:'',itemStyle: {normal: {color:'transparent'}},label: {show: false},labelLine: {show: false}}];
-    const center2= [
-        ['1','计技中221','农鑫盛','星蓝冲冲冲','575408498','809','河池学院','2','125','00:51:03'],
-        ['2','计技222','吴玉海','吴玉海','206578392','1096','河池学院','1','55','01:58:55'],
-        ['3','计技222','莫树生','mac落暮','522449800','1180','河池学院','1','53.75','00:53:19'],
-        ['4','计技222','谢伟鹏','胡图图写编程','341966389','1197','河池学院','1','50','00:08:49'],
-        ['5','计技222','李佳蔚','diligent的懒羊羊','222917009','1197','河池学院','1','50','00:09:39'],
-        ['6','软件222','黎珊珊','彩塘','542981108','1197','河池学院','1','50','00:11:46'],
-        ['7','计技222','杨思婷','yy耶斯','703497972','1197','河池学院','1','50','00:13:09'],
-        ['8',' 计技中 221',' 谢绍贤 ','小香葱','913638917','1197','河池学院','1','50','00:30:12'],
-        ['9','计技中222','覃健庭','NPC_of_EarthOnline','726623220','1197','河池学院','1','50','00:50:21'],
-        ['10','计技中221','卢永华','阳光as','445291084','1197','河池学院','1','50','01:01:32'],
-        ['11','计技中221','陆明锐','瓦工读后感','706480812','1197','河池学院','1','50','01:32:24'],
-        ['12',' 软件 242',' 桂瑞杰 ','Jerry1__','690762843','1757','河池学院','0','40','00:22:57']
-    ];
-    const right1= [
-        {value: 12,name: 'A'},
-        {value: 5,name: 'B'},
-        {value: 1,name: 'C'},
-        {value: 0,name: 'D'},
-        {value: 0,name: 'E'},
-        {value: 0,name: 'F'},
-        {value: 0,name: 'G'}];
-    const right2_data1= ['65周','66周','67周','68周','69周','70周','71周'];
-    const right2_data2= [24,26,23,31,28,29,12];
-    const right3= [
-        ['1','⌀','计技231','农阳晨','451.05','01:48:37'],
-        ['2','⌀','软件232','邱帥銘','434.38','01:57:36'],
-        ['3','⌀','软件232','潘昊','325','01:46:28'],
-        ['4','⇪','计技222','吴玉海','301.05','01:26:55'],
-        ['5','⇪','计技222','莫树生','225','01:00:33'],
-        ['6','⌀','计技231','石才尚','225','01:04:54'],
-        ['7','⇪','计技222','李佳蔚','225','01:32:47'],
-        ['8','⇪','计技222','杨思婷','225','01:32:59'],
-        ['9','⇪','软件222','黎珊珊','225','01:34:38'],
-        ['10','⌀','计技232','莫光勋','153.13','01:53:03'],
-        ['11','⌀','软件231','赵俊锋','134.38','01:54:12'],
-        ['12','⌀',' 计技 231',' 雷世维 ','129.69','01:51:53'],
-        ['13','⌀',' 软件 231',' 罗茸丹 ','129.69','01:54:48'],
-        ['14','⌀',' 计技中 221',' 谢业棋 ','125','00:24:03'],
-        ['15','⌀','软件231','李文慧','125','00:24:42'],
-        ['16','⌀','软件231','陈礼孝','125','00:31:44'],
-        ['17','⇪','计技中221','农鑫盛','125','00:37:49'],
-        ['18','⌀','软件231','黄小慧','125','01:12:30'],
-        ['19','⌀','软件231','梁丽媛','125','01:13:38'],
-        ['20','⌀','计技231','杨孙贤','72.50','00:41:10'],
-        ['21','⇪','计技中221','卢永华','72.50','01:34:51'],
-        ['22','⌀','软件231','蓝如意','62.50','01:00:09'],
-        ['23','⇪',' 软件 242',' 桂瑞杰 ','50','00:27:15'],
-        ['24','⌀',' 软件 231',' 宁馨怡 ','50','01:12:22'],
-        ['25','⌀','技计中221','罗志斌','50','01:50:04'],
-        ['26','⌀','大数据232','王恩婷','50','01:55:33'],
-        ['27','⇪','计技中221','陆明锐','50','01:57:25'],
-        ['28','⇪','计技222','谢伟鹏','20','01:26:51'],
-        ['29','⌀',' 软件 242',' 唐博鸿 ','0','00:00:00']
-    ];
 </script>-->
 
+<script type="text/javascript">
+    const num = 71;
+    const left2 = [{value: 590.00, name: 'A'},
+        {value: 78.75, name: 'B'},
+        {value: 5.00, name: 'C'},
+        {value: 0.00, name: 'D'},
+        {value: 0.00, name: 'E'},
+        {value: 0.00, name: 'F'},
+        {value: 0.00, name: 'G'}];
+    const left3_data1 = ['29', '22', '12', '8', '4', '2', '1'];
+    const left3_data2 = ['12', '5', '1', '0', '0', '0', '0'];
+    const left3_data3 = ['-17', '-17', '-11', '-8', '-4', '-2', '-1'];
+    const center1 = [
+        {value: 590.00, name: 'A', itemStyle: {normal: {color: '#f845f1'}}},
+        {value: 78.75, name: 'B', itemStyle: {normal: {color: '#ad46f3'}}},
+        {value: 5.00, name: 'C', itemStyle: {normal: {color: '#5045f6'}}},
+        {value: 0.00, name: 'D', itemStyle: {normal: {color: '#4777f5'}}},
+        {value: 0.00, name: 'E', itemStyle: {normal: {color: '#44aff0'}}},
+        {value: 0.00, name: 'F', itemStyle: {normal: {color: '#45dbf7'}}},
+        {value: 0.00, name: 'G', itemStyle: {normal: {color: '#f6d54a'}}},
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        },
+        {
+            value: 0.0,
+            name: '',
+            itemStyle: {normal: {color: 'transparent'}},
+            label: {show: false},
+            labelLine: {show: false}
+        }];
+    const center2 = [
+        ['1', '计技中221', '农鑫盛', '星蓝冲冲冲', '575408498', '809', '河池学院', '2', '125', '00:51:03'],
+        ['2', '计技222', '吴玉海', '吴玉海', '206578392', '1096', '河池学院', '1', '55', '01:58:55'],
+        ['3', '计技222', '莫树生', 'mac落暮', '522449800', '1180', '河池学院', '1', '53.75', '00:53:19'],
+        ['4', '计技222', '谢伟鹏', '胡图图写编程', '341966389', '1197', '河池学院', '1', '50', '00:08:49'],
+        ['5', '计技222', '李佳蔚', 'diligent的懒羊羊', '222917009', '1197', '河池学院', '1', '50', '00:09:39'],
+        ['6', '软件222', '黎珊珊', '彩塘', '542981108', '1197', '河池学院', '1', '50', '00:11:46'],
+        ['7', '计技222', '杨思婷', 'yy耶斯', '703497972', '1197', '河池学院', '1', '50', '00:13:09'],
+        ['8', ' 计技中 221', ' 谢绍贤 ', '小香葱', '913638917', '1197', '河池学院', '1', '50', '00:30:12'],
+        ['4', '计技222', '谢伟鹏', '胡图图写编程', '341966389', '1197', '河池学院', '1', '50', '00:08:49'],
+        ['5', '计技222', '李佳蔚', 'diligent的懒羊羊', '222917009', '1197', '河池学院', '1', '50', '00:09:39'],
+        ['6', '软件222', '黎珊珊', '彩塘', '542981108', '1197', '河池学院', '1', '50', '00:11:46'],
+        ['7', '计技222', '杨思婷', 'yy耶斯', '703497972', '1197', '河池学院', '1', '50', '00:13:09'],
+        ['8', ' 计技中 221', ' 谢绍贤 ', '小香葱', '913638917', '1197', '河池学院', '1', '50', '00:30:12'],
+        ['4', '计技222', '谢伟鹏', '胡图图写编程', '341966389', '1197', '河池学院', '1', '50', '00:08:49'],
+        ['5', '计技222', '李佳蔚', 'diligent的懒羊羊', '222917009', '1197', '河池学院', '1', '50', '00:09:39'],
+        ['6', '软件222', '黎珊珊', '彩塘', '542981108', '1197', '河池学院', '1', '50', '00:11:46'],
+        ['7', '计技222', '杨思婷', 'yy耶斯', '703497972', '1197', '河池学院', '1', '50', '00:13:09'],
+        ['8', ' 计技中 221', ' 谢绍贤 ', '小香葱', '913638917', '1197', '河池学院', '1', '50', '00:30:12'],
+        ['4', '计技222', '谢伟鹏', '胡图图写编程', '341966389', '1197', '河池学院', '1', '50', '00:08:49'],
+        ['5', '计技222', '李佳蔚', 'diligent的懒羊羊', '222917009', '1197', '河池学院', '1', '50', '00:09:39'],
+        ['6', '软件222', '黎珊珊', '彩塘', '542981108', '1197', '河池学院', '1', '50', '00:11:46'],
+        ['7', '计技222', '杨思婷', 'yy耶斯', '703497972', '1197', '河池学院', '1', '50', '00:13:09'],
+        ['8', ' 计技中 221', ' 谢绍贤 ', '小香葱', '913638917', '1197', '河池学院', '1', '50', '00:30:12'],
+        ['9', '计技中222', '覃健庭', 'NPC_of_EarthOnline', '726623220', '1197', '河池学院', '1', '50', '00:50:21'],
+        ['10', '计技中221', '卢永华', '阳光as', '445291084', '1197', '河池学院', '1', '50', '01:01:32'],
+        ['11', '计技中221', '陆明锐', '瓦工读后感', '706480812', '1197', '河池学院', '1', '50', '01:32:24'],
+        ['12', ' 软件 242', ' 桂瑞杰 ', 'Jerry1__', '690762843', '1757', '河池学院', '0', '40', '00:22:57']
+    ];
+    const right1 = [
+        {value: 12, name: 'A'},
+        {value: 5, name: 'B'},
+        {value: 1, name: 'C'},
+        {value: 0, name: 'D'},
+        {value: 0, name: 'E'},
+        {value: 0, name: 'F'},
+        {value: 0, name: 'G'}];
+    const right2_data1 = ['65周', '66周', '67周', '68周', '69周', '70周', '71周'];
+    const right2_data2 = [24, 26, 23, 31, 28, 29, 12];
+    const right3 = [
+        ['1', '⌀', '计技231', '农阳晨', '451.05', '01:48:37'],
+        ['2', '⌀', '软件232', '邱帥銘', '434.38', '01:57:36'],
+        ['3', '⌀', '软件232', '潘昊', '325', '01:46:28'],
+        ['4', '⇪', '计技222', '吴玉海', '301.05', '01:26:55'],
+        ['5', '⇪', '计技222', '莫树生', '225', '01:00:33'],
+        ['6', '⌀', '计技231', '石才尚', '225', '01:04:54'],
+        ['7', '⇪', '计技222', '李佳蔚', '225', '01:32:47'],
+        ['8', '⇪', '计技222', '杨思婷', '225', '01:32:59'],
+        ['9', '⇪', '软件222', '黎珊珊', '225', '01:34:38'],
+        ['10', '⌀', '计技232', '莫光勋', '153.13', '01:53:03'],
+        ['11', '⌀', '软件231', '赵俊锋', '134.38', '01:54:12'],
+        ['12', '⌀', ' 计技 231', ' 雷世维 ', '129.69', '01:51:53'],
+        ['13', '⌀', ' 软件 231', ' 罗茸丹 ', '129.69', '01:54:48'],
+        ['14', '⌀', ' 计技中 221', ' 谢业棋 ', '125', '00:24:03'],
+        ['15', '⌀', '软件231', '李文慧', '125', '00:24:42'],
+        ['16', '⌀', '软件231', '陈礼孝', '125', '00:31:44'],
+        ['17', '⇪', '计技中221', '农鑫盛', '125', '00:37:49'],
+        ['18', '⌀', '软件231', '黄小慧', '125', '01:12:30'],
+        ['19', '⌀', '软件231', '梁丽媛', '125', '01:13:38'],
+        ['20', '⌀', '计技231', '杨孙贤', '72.50', '00:41:10'],
+        ['21', '⇪', '计技中221', '卢永华', '72.50', '01:34:51'],
+        ['22', '⌀', '软件231', '蓝如意', '62.50', '01:00:09'],
+        ['23', '⇪', ' 软件 242', ' 桂瑞杰 ', '50', '00:27:15'],
+        ['24', '⌀', ' 软件 231', ' 宁馨怡 ', '50', '01:12:22'],
+        ['25', '⌀', '技计中221', '罗志斌', '50', '01:50:04'],
+        ['26', '⌀', '大数据232', '王恩婷', '50', '01:55:33'],
+        ['27', '⇪', '计技中221', '陆明锐', '50', '01:57:25'],
+        ['28', '⇪', '计技222', '谢伟鹏', '20', '01:26:51'],
+        ['29', '⌀', ' 软件 242', ' 唐博鸿 ', '0', '00:00:00']
+    ];
+</script>
 <!--数据*/*/*/*￥#&2-->
 <script type="text/javascript">
     name_num = num;
