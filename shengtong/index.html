@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏天地 - 我们的小游戏作品</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF5E5B', // 游戏风格主色调-活力红
+                        secondary: '#4E83FD', // 辅助色-科技蓝
+                        accent: '#FFCE52', // 强调色-活力黄
+                        dark: '#2A2A42', // 深色
+                        light: '#F8F9FF' // 浅色背景
+                    },
+                    fontFamily: {
+                        game: ['"Press Start 2P"', 'cursive', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+
+            .pixel-border {
+                box-shadow: 0 -4px 0 4px theme('colors.dark'),
+                4px 0 0 4px theme('colors.dark'),
+                0 4px 0 4px theme('colors.dark'),
+                -4px 0 0 4px theme('colors.dark');
+            }
+
+            .game-card-hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+        }
+    </style>
+
+    <style>
+        .bg-white-glass {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255,255, 255, 0.8);
+
+        }
+
+        /* 导入字体 */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap');
+
+        /* 基础动画 */
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* 滚动动画 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 像素风格按钮动画 */
+        .pixel-btn {
+            position: relative;
+            transition: all 0.1s ease;
+        }
+
+        .pixel-btn:active {
+            top: 4px;
+        }
+
+        .pixel-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: all 0.1s ease;
+        }
+
+        .pixel-btn:active::after {
+            bottom: 0;
+            height: 0;
+        }
+
+        /* 游戏卡片悬停效果 */
+        .game-card {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-light font-inter text-dark overflow-x-hidden">
+<!-- 导航栏 -->
+
+<!--TODO//SVG动画-->
+<div style=" position: absolute;z-index:0;top: -800px;left: 150px;"><!--//SVG动画-->
+    <svg xmlns="http://www.w3.org/2000/svg" id="svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+        <defs>
+            <!-- 渐变动画：色彩流动 效果 -->
+            <linearGradient id="volume-psycham" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#9333ea" />
+                <stop offset="40%" stop-color="#ec4899" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#f97316" stop-opacity="0.7" />
+                <!-- 渐变自身旋转，让色彩 流动 -->
+                <animateTransform
+                        attributeName="gradientTransform"
+                        type="rotate"
+                        values="0 0.5 0.5; -360 0.5 0.5; 0 0.5 0.5"
+                        dur="30s"
+                        repeatCount="indefinite"
+                        additive="sum"
+                />
+            </linearGradient>
+        </defs>
+
+        <!-- 图形组：所有矩形共享同一旋转中心 -->
+        <g transform="translate(-10, 230)">
+            <!-- 第1层矩形：旋转+轻微缩放动画 -->
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24"
+                  fill="url(#volume-psycham)" fill-opacity="0.24"
+                  transform-origin="808 423.5">
+                <!-- 旋转动画：逆时针缓慢旋转 -->
+                <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0" to="-360"
+                        dur="40s"
+                        repeatCount="indefinite"
+                />
+                <!-- 缩放波动：轻微放大缩小 -->
+                <animateTransform
+                        attributeName="transform"
+                        type="scale"
+                        values="6.8; 7; 6.8"
+                        dur="8s"
+                        repeatCount="indefinite"
+                        additive="sum"
+                />
+            </rect>
+
+            <!-- 第2层矩形：稍快的旋转+不同幅度缩放 -->
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24"
+                  fill="url(#volume-psycham)" fill-opacity="0.24"
+                  transform-origin="808 423.5">
+                <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0" to="-360"
+                        dur="35s"
+                        repeatCount="indefinite"
+                />
+                <animateTransform
+                        attributeName="transform"
+                        type="scale"
+                        values="6; 6.2; 6"
+                        dur="7s"
+                        repeatCount="indefinite"
+                        additive="sum"
+                />
+            </rect>
+
+            <!-- 第3层矩形 -->
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24"
+                  fill="url(#volume-psycham)" fill-opacity="0.32"
+                  transform-origin="808 423.5">
+                <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0" to="-360"
+                        dur="30s"
+                        repeatCount="indefinite"
+                />
+                <animateTransform
+                        attributeName="transform"
+                        type="scale"
+                        values="5.2; 5.4; 5.2"
+                        dur="6s"
+                        repeatCount="indefinite"
+                        additive="sum"
+                />
+            </rect>
+
+            <!-- 第4层矩形 -->
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24"
+                  fill="url(#volume-psycham)" fill-opacity="0.48"
+                  transform-origin="808 423.5">
+                <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0" to="-360"
+                        dur="25s"
+                        repeatCount="indefinite"
+                />
+                <animateTransform
+                        attributeName="transform"
+                        type="scale"
+                        values="4.44; 4.6; 4.44"
+                        dur="5s"
+                        repeatCount="indefinite"
+                        additive="sum"
+                />
+            </rect>
+
+            <!-- 第5层矩形 -->
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24"
+                  fill="url(#volume-psycham)" fill-opacity="0.64"
+                  transform-origin="808 423.5">
+                <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0" to="-360"
+                        dur="20s"
+                        repeatCount="indefinite"
+                />
+                <animateTransform
+                        attributeName="transform"
+                        type="scale"
+                        values="3.76; 3.9; 3.76"
+                        dur="4s"
+                        repeatCount="indefinite"
+                        additive="sum"
+                />
+            </rect>
+
+            <!-- 第6层矩形：最快的旋转 -->
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24"
+                  fill="url(#volume-psycham)" fill-opacity="0.72"
+                  transform-origin="808 423.5">
+                <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0" to="-360"
+                        dur="15s"
+                        repeatCount="indefinite"
+                />
+                <animateTransform
+                        attributeName="transform"
+                        type="scale"
+                        values="3.18; 3.3; 3.18"
+                        dur="3s"
+                        repeatCount="indefinite"
+                        additive="sum"
+                />
+            </rect>
+        </g>
+    </svg>
+</div>
+<header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-sm shadow-md" >
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+            <!-- 品牌Logo -->
+            <a href="#" class="flex items-center space-x-2">
+                <img class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center" src="logo.jpg"
+                     alt="晟通科技" class="w-8 h-8">
+                <span class="text-xl font-bold text-dark">晟通科技</span>
+            </a>
+
+            <!-- 桌面导航菜单 -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" class="font-medium hover:text-primary transition-colors">首页</a>
+                <a href="#" class="font-medium text-primary border-b-2 border-primary pb-1">小游戏</a>
+                <a href="#" class="font-medium hover:text-primary transition-colors">食品饮品</a>
+                <a href="#" class="font-medium hover:text-primary transition-colors">关于我们</a>
+                <a href="#contact" class="font-medium hover:text-primary transition-colors">联系合作</a>
+            </nav>
+
+            <!-- 移动端菜单按钮 -->
+            <button id="menu-toggle" class="md:hidden text-dark focus:outline-none">
+                <i class="fa fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+        <div class="container mx-auto px-4 py-3 space-y-3">
+            <a href="#" class="block py-2 font-medium hover:text-primary transition-colors">首页</a>
+            <a href="#" class="block py-2 font-medium text-primary">小游戏</a>
+            <a href="#" class="block py-2 font-medium hover:text-primary transition-colors">食品饮品</a>
+            <a href="#" class="block py-2 font-medium hover:text-primary transition-colors">关于我们</a>
+            <a href="#contact" class="block py-2 font-medium hover:text-primary transition-colors">联系合作</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- 游戏板块横幅 -->
+    <section class="pt-32 pb-20 bg-gradient-to-br from-dark to-dark/90 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2 reveal">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight mb-6">
+                        创意<span class="text-accent">小游戏</span><br>
+                        无限<span class="text-primary">乐趣</span>
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-8 max-w-lg">
+                        我们开发的休闲小游戏，简单易上手却充满乐趣，为用户带来轻松愉快的游戏体验，适合各种场景玩耍。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#games"
+                           class="pixel-btn bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded font-medium transition-colors">
+                            浏览游戏
+                        </a>
+                        <a href="#contact"
+                           class="pixel-btn bg-secondary hover:bg-secondary/90 text-white px-6 py-3 rounded font-medium transition-colors">
+                            定制开发
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 reveal">
+                    <div class="relative">
+                        <!--                            TODO: 游戏展示图-->
+                        <img src="game1.jpg" alt="游戏展示图" class="rounded-xl shadow-2xl float">
+                        <div class="absolute -bottom-6 -left-6 bg-accent text-dark p-3 rounded-lg shadow-lg rotate-[-5deg]">
+                            <p class="font-game text-sm">新游戏上线!</p>
+                        </div>
+                        <div class="absolute -top-4 -right-4 bg-primary text-white p-3 rounded-lg shadow-lg rotate-[5deg]">
+                            <p class="font-game text-sm">100万+玩家</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div style="background: url('bg1.png');">
+        <!-- 游戏特色 -->
+        <section class="py-20 bg-white-glass">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">我们的游戏特色</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                        每款游戏都凝聚了我们的创意与心血，带来独特的游戏体验
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- 特色1 -->
+                    <div class="bg-light rounded-xl p-8 shadow-lg hover:shadow-xl transition-all reveal">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa fa-bolt text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">轻松上手</h3>
+                        <p class="text-gray-600">
+                            简单直观的操作方式，30秒内即可掌握游戏玩法，适合各年龄段玩家。
+                        </p>
+                    </div>
+
+                    <!-- 特色2 -->
+                    <div class="bg-light rounded-xl p-8 shadow-lg hover:shadow-xl transition-all reveal"
+                         style="transition-delay: 100ms">
+                        <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa fa-mobile text-2xl text-secondary"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">全平台适配</h3>
+                        <p class="text-gray-600">
+                            完美支持手机、平板和电脑端，随时随地都能享受游戏乐趣。
+                        </p>
+                    </div>
+
+                    <!-- 特色3 -->
+                    <div class="bg-light rounded-xl p-8 shadow-lg hover:shadow-xl transition-all reveal"
+                         style="transition-delay: 200ms">
+                        <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa fa-rocket text-2xl text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">创新玩法</h3>
+                        <p class="text-gray-600">
+                            融合多种创新元素，每款游戏都有独特的核心玩法，拒绝同质化。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 游戏作品展示 -->
+        <section id="games" class="py-20 bg-light">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">热门游戏作品</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                        探索我们开发的精选小游戏，每一款都值得一试
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 游戏1 -->
+                    <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg reveal">
+                        <div class="relative">
+                            <img src="game2.jpg" alt="像素冒险王游戏封面" class="w-full h-48 object-cover">
+                            <div class="absolute top-4 right-4 bg-primary text-white text-sm font-bold px-3 py-1 rounded-full">
+                                热门
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">像素冒险王</h3>
+                            <p class="text-gray-600 mb-4">一款复古风格的平台跳跃游戏，收集金币，躲避障碍，挑战高分。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star-half-o text-accent"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">4.5/5</span>
+                                </div>
+                                <a href="#" class="text-secondary font-medium hover:underline">开始游戏 <i
+                                        class="fa fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 游戏2 -->
+                    <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg reveal"
+                         style="transition-delay: 100ms">
+                        <div class="relative">
+                            <img src="game3.jpg" alt="美食连连看游戏封面" class="w-full h-48 object-cover">
+                            <div class="absolute top-4 right-4 bg-accent text-dark text-sm font-bold px-3 py-1 rounded-full">
+                                新品
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">美食连连看</h3>
+                            <p class="text-gray-600 mb-4">以我们的食品为主题的连连看游戏，连接相同的美食图案消除得分。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star-o text-accent"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">4.0/5</span>
+                                </div>
+                                <a href="#" class="text-secondary font-medium hover:underline">开始游戏 <i
+                                        class="fa fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 游戏3 -->
+                    <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg reveal"
+                         style="transition-delay: 200ms">
+                        <div class="relative">
+                            <img src="game4.png" alt="太空侵略者游戏封面" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">太空侵略者</h3>
+                            <p class="text-gray-600 mb-4">经典射击游戏的创新版本，操控飞船抵御外星侵略者的进攻。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">5.0/5</span>
+                                </div>
+                                <a href="#" class="text-secondary font-medium hover:underline">开始游戏 <i
+                                        class="fa fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 游戏4 -->
+                    <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg reveal"
+                         style="transition-delay: 300ms">
+                        <div class="relative">
+                            <img src="game5.png" alt="数字消除大师游戏封面" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">数字消除大师</h3>
+                            <p class="text-gray-600 mb-4">一款考验脑力的数字消除游戏，通过策略组合数字获得高分。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star-half-o text-accent"></i>
+                                        <i class="fa fa-star-o text-accent"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">3.5/5</span>
+                                </div>
+                                <a href="#" class="text-secondary font-medium hover:underline">开始游戏 <i
+                                        class="fa fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 游戏5 -->
+                    <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg reveal"
+                         style="transition-delay: 400ms">
+                        <div class="relative">
+                            <img src="game1.jpg" alt="农场物语游戏封面" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">农场物语</h3>
+                            <p class="text-gray-600 mb-4">休闲养成类游戏，种植作物，饲养动物，打造属于自己的农场。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star-o text-accent"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">4.2/5</span>
+                                </div>
+                                <a href="#" class="text-secondary font-medium hover:underline">开始游戏 <i
+                                        class="fa fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 游戏6 -->
+                    <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg reveal"
+                         style="transition-delay: 500ms">
+                        <div class="relative">
+                            <img src="game2.jpg" alt="赛车传奇游戏封面" class="w-full h-48 object-cover">
+                            <div class="absolute top-4 right-4 bg-primary text-white text-sm font-bold px-3 py-1 rounded-full">
+                                热门
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">赛车传奇</h3>
+                            <p class="text-gray-600 mb-4">快节奏赛车游戏，多种赛道和车型选择，体验极速狂飙的快感。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star text-accent"></i>
+                                        <i class="fa fa-star-half-o text-accent"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">4.7/5</span>
+                                </div>
+                                <a href="#" class="text-secondary font-medium hover:underline">开始游戏 <i
+                                        class="fa fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12 reveal">
+                    <a href="#"
+                       class="pixel-btn bg-dark hover:bg-dark/90 text-white px-8 py-3 rounded font-medium transition-colors inline-block">
+                        查看全部游戏
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 开发能力展示 -->
+        <section class="py-20 bg-white-glass">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">我们的开发能力</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                        专业的技术团队，丰富的开发经验，为您打造高品质游戏
+                    </p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <div class="lg:w-1/2 reveal">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- 技术1 -->
+                            <div class="bg-light p-6 rounded-xl shadow-md">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa fa-code text-primary"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold">多平台开发</h3>
+                                </div>
+                                <p class="text-gray-600">支持HTML5、微信小游戏、App等多平台开发，一次开发多端适配。</p>
+                            </div>
+
+                            <!-- 技术2 -->
+                            <div class="bg-light p-6 rounded-xl shadow-md">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa fa-paint-brush text-secondary"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold">美术设计</h3>
+                                </div>
+                                <p class="text-gray-600">专业美术团队，提供像素风、卡通、写实等多种风格的游戏美术设计。</p>
+                            </div>
+
+                            <!-- 技术3 -->
+                            <div class="bg-light p-6 rounded-xl shadow-md">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa fa-music text-accent"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold">音效制作</h3>
+                                </div>
+                                <p class="text-gray-600">定制游戏音效和背景音乐，增强游戏沉浸感和趣味性。</p>
+                            </div>
+
+                            <!-- 技术4 -->
+                            <div class="bg-light p-6 rounded-xl shadow-md">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-dark/10 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa fa-line-chart text-dark"></i>
+                                    </div>
+                                    <h3 class="text-lg font-bold">数据分析</h3>
+                                </div>
+                                <p class="text-gray-600">集成数据分析系统，跟踪用户行为，为游戏优化提供数据支持。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-1/2 reveal">
+                        <div class="bg-light p-8 rounded-xl shadow-lg">
+                            <h3 class="text-xl font-bold mb-6">游戏开发类型</h3>
+                            <canvas id="gameTypesChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- 合作咨询 -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-dark to-dark/90 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">联系我们</h2>
+                    <p class="text-gray-300 max-w-2xl mx-auto text-lg">
+                        无论您想定制游戏、寻求合作，还是有任何疑问，都可以联系我们
+                    </p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 shadow-xl reveal">
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2">您的姓名</label>
+                                <input type="text" id="name"
+                                       class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                                       placeholder="请输入您的姓名">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">电子邮箱</label>
+                                <input type="email" id="email"
+                                       class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                                       placeholder="请输入您的邮箱">
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="subject" class="block text-sm font-medium mb-2">主题</label>
+                            <select id="subject"
+                                    class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-primary">
+                                <option value="" selected disabled>请选择咨询主题</option>
+                                <option value="custom-game">定制游戏开发</option>
+                                <option value="cooperation">商务合作</option>
+                                <option value="investment">投资洽谈</option>
+                                <option value="other">其他问题</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium mb-2">您的留言</label>
+                            <textarea id="message" rows="5"
+                                      class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                                      placeholder="请详细描述您的需求或问题"></textarea>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit"
+                                    class="pixel-btn bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded font-medium transition-colors inline-block">
+                                发送留言
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-center reveal">
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa fa-envelope text-primary"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">邮箱</h3>
+                        <p class="text-gray-300">contact@晟通科技.com</p>
+                    </div>
+
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa fa-phone text-primary"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">电话</h3>
+                        <p class="text-gray-300">0778-3182636</p>
+                    </div>
+
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa fa-map-marker text-primary"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">地址</h3>
+                        <p class="text-gray-300">河池市宜州区创意园区A座666</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- 页脚 -->
+<footer class="bg-dark py-12 text-white/70">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <div class="flex items-center space-x-2 mb-4">
+                    <img class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center" src="logo.jpg"
+                         alt="晟通科技" class="w-8 h-8">
+                    <span class="text-xl font-bold text-white">晟通科技</span>
+                </div>
+                <p class="max-w-md">结合游戏开发与食品饮品的创新企业，为用户带来乐趣与美味。</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-white font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-primary transition-colors">首页</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">小游戏</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">食品饮品</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">关于我们</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">游戏分类</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-primary transition-colors">休闲益智</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">动作冒险</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">模拟经营</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">竞技对战</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">关注我们</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#"
+                           class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#"
+                           class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#"
+                           class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-qq"></i>
+                        </a>
+                        <a href="#"
+                           class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-tiktok"></i>
+                        </a>
+                    </div>
+                    <p>订阅我们的新闻动态</p>
+                    <div class="flex mt-2">
+                        <input type="email" placeholder="您的邮箱"
+                               class="px-4 py-2 rounded-l-lg bg-white/10 border border-white/20 focus:outline-none focus:ring-1 focus:ring-primary w-full">
+                        <button class="bg-primary hover:bg-primary/90 px-4 py-2 rounded-r-lg transition-colors">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p>© 2023 晟通科技. 保留所有权利。</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-primary transition-colors">隐私政策</a>
+                <a href="#" class="hover:text-primary transition-colors">服务条款</a>
+                <a href="#" class="hover:text-primary transition-colors">Cookie政策</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // 滚动动画
+    function revealOnScroll() {
+        const reveals = document.querySelectorAll('.reveal');
+
+        for (let i = 0; i < reveals.length; i++) {
+            const windowHeight = window.innerHeight;
+            const elementTop = reveals[i].getBoundingClientRect().top;
+            const elementVisible = 150;
+
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add('active');
+            }
+        }
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); // 初始检查
+
+    // 游戏卡片悬停效果
+    const gameCards = document.querySelectorAll('.game-card');
+    gameCards.forEach(card => {
+        card.addEventListener('mouseenter', function () {
+            this.classList.add('game-card-hover');
+        });
+        card.addEventListener('mouseleave', function () {
+            this.classList.remove('game-card-hover');
+        });
+    });
+
+    // 游戏类型图表
+    const ctx = document.getElementById('gameTypesChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['休闲益智', '动作冒险', '模拟经营', '竞技对战', '角色扮演'],
+            datasets: [{
+                data: [35, 25, 15, 15, 10],
+                backgroundColor: [
+                    '#FF5E5B',
+                    '#4E83FD',
+                    '#FFCE52',
+                    '#2AD392',
+                    '#722ED1'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#2A2A42',
+                        font: {
+                            size: 12
+                        },
+                        padding: 20
+                    }
+                }
+            },
+            cutout: '65%'
+        }
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+
+                // 关闭移动菜单（如果打开）
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
+    
