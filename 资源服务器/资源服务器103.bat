@@ -48,7 +48,6 @@ if %errorlevel% neq 0 (
     echo NO NO NO NO into home -.-.-.-.-.-.-.-.-.-.--.-.-.-.-.-.-.-.-.-.-
     git add .
     git commit -m "Retry commit - %date% %time% - ttttttttttttttttui sou"
-    echo NO NO NO NO into home -.-.-.-.-.-.-.-.-.-.--.-.-.-.-.-.-.-.-.-.-
     git push origin HEAD
     if %errorlevel% neq 0 (
         echo NO NO NO NO into home -.-.-.-.-.-.-.-.-.-.--.-.-.-.-.-.-.-.-.-.-
