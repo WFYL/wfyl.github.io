@@ -45,21 +45,21 @@ echo ---------------------------PUSH---------------------------
 git push origin HEAD
 
 if %errorlevel% neq 0 (
-    echo NO NO NO NO into home
+    echo NO NO NO NO into home !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     git add .
     git commit -m "Retry commit - %date% %time%"
-    echo NO NO NO NO into home
+    echo NO NO NO NO into home !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     git push origin HEAD
     if %errorlevel% neq 0 (
-        echo NO NO NO NO into home
+        echo NO NO NO NO into home !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     ) else (
-        echo YES YES YES YES into home
+        echo YES YES YES YES into home #####################
     )
 ) else (
-    echo YES YES YES YES into home
+    echo YES YES YES YES into home #####################
 )
 
 echo -------------------------Waiting--------------------------
-echo Waiting %interval% s time to run Next GO!GO!GO!...
+echo Waiting %interval% s time to run Next GO GO GO!...
 ping -n %interval% 127.0.0.1 > nul
 goto loop
