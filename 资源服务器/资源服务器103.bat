@@ -12,13 +12,13 @@ echo ##########################################################
 echo GO!GO!GO!... started wfyl.github.io
 echo ##########################################################
 set target=w:\java\SoftwareGraduationDesign\ACNiuOJ\wfyl.github.io
-set interval=5
+set interval=1
 set num=1
 
 :loop
-echo +
+echo + 
 echo +++++++++++++++++++++++++++++%num%+++++++++++++++++++++++++++++
-echo +
+echo + 
 set /a num+=1
 echo ----------------------------------------------------------
 echo Checking if new Info
