@@ -12,7 +12,7 @@ echo ##########################################################
 echo GO!GO!GO!... started wfyl.github.io
 echo ##########################################################
 set target=w:\java\SoftwareGraduationDesign\ACNiuOJ\wfyl.github.io
-set interval=1
+set interval=20
 set num=1
 
 :loop
