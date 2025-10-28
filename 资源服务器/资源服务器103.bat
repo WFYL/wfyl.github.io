@@ -24,8 +24,8 @@ echo ----------------------------------------------------------
 echo Checking if new Info
 
 if not exist "%target%" (
-    echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!NO!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    echo Error: ifdir!!NO!! dir not found
+    echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    echo Error: ifdir NO !! dir not found
     ping -n 5 127.0.0.1 > nul
     goto loop
 )
@@ -40,25 +40,23 @@ if not exist ".git" (
 
 echo ---------------------------AND----------------------------
 git add .
-git commit -m "Auto commit - %date% %time%"
+git commit -m "Auto commit - %date% %time% - Go Go Go"
 echo ---------------------------PUSH---------------------------
-echo Going Git Home ! GO!GO!GO! HeiKaFeiPingWeiYouDuoNong ......
 git push origin HEAD
 
-:: 检查推送是否成功
 if %errorlevel% neq 0 (
-    echo 推送失败！正在重新尝试提交并推送...
+    echo NO NO NO NO into home
     git add .
     git commit -m "Retry commit - %date% %time%"
-    echo 重新提交完成，再次尝试推送...
+    echo NO NO NO NO into home
     git push origin HEAD
     if %errorlevel% neq 0 (
-        echo 二次推送也失败了，请检查网络或仓库配置。
+        echo NO NO NO NO into home
     ) else (
-        echo 二次推送成功！
+        echo YES YES YES YES into home
     )
 ) else (
-    echo 推送成功！
+    echo YES YES YES YES into home
 )
 
 echo -------------------------Waiting--------------------------
