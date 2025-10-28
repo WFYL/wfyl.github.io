@@ -40,7 +40,7 @@ if not exist ".git" (
 
 echo ---------------------------AND----------------------------
 git add .
-git commit -m "Auto commit - %date% %time% - Go Go Go"
+git commit -m "Auto commit - %date% %time% - Go Go Go ++++++++++"
 echo ---------------------------PUSH---------------------------
 git push origin HEAD
 
