@@ -34,7 +34,7 @@ cd /d "%target%"
 
 echo ---------------------------HOME---------------------------
 if not exist ".git" (
-    echo into Git home... Initializing git repository...
+    echo into Git home... Initializing git repository... YES YES YES YES YES YES YES YES
     git init
 )
 
