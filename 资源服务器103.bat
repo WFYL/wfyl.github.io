@@ -15,7 +15,6 @@ set target=w:\java\SoftwareGraduationDesign\ACNiuOJ\wfyl.github.io
 set interval=20
 set num=1
 
-
 :loop
 echo + 
 echo +++++++++++++++++++++++++++++%num%+++++++++++++++++++++++++++++
