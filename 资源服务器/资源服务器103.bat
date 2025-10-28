@@ -45,6 +45,22 @@ echo ---------------------------PUSH---------------------------
 echo Going Git Home ! GO!GO!GO! HeiKaFeiPingWeiYouDuoNong ......
 git push origin HEAD
 
+:: 检查推送是否成功
+if %errorlevel% neq 0 (
+    echo 推送失败！正在重新尝试提交并推送...
+    git add .
+    git commit -m "Retry commit - %date% %time%"
+    echo 重新提交完成，再次尝试推送...
+    git push origin HEAD
+    if %errorlevel% neq 0 (
+        echo 二次推送也失败了，请检查网络或仓库配置。
+    ) else (
+        echo 二次推送成功！
+    )
+) else (
+    echo 推送成功！
+)
+
 echo -------------------------Waiting--------------------------
 echo Waiting %interval% s time to run Next GO!GO!GO!...
 ping -n %interval% 127.0.0.1 > nul
